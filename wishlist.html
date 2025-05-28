@@ -85,42 +85,49 @@
 
   <ul id="bookList"></ul>
   </div>
-    <script>
-        async function addEmployee() {
-        const name = document.getElementById("name").value;
-    
-        const res = await fetch("/api/books", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title }),
-        });
-    
-        const data = await res.json();
-    
-        if (res.ok) {
-            alert("Книга додана до Wishlist");
-            document.getElementById("name").value = ""; // Очистити поле вводу
-            fetchWishlist(); // Оновити список
-        } else {
-            alert(data.message);
-        }
-        }
-    
-        async function fetchWishlist() {
-        const res = await fetch("/api/books");
-        const wishlist = await res.json();
-        const wishlistContainer = document.getElementById("wishlist");
-        wishlistContainer.innerHTML = ""; // Очистити попередній список
-    
-        wishlist.forEach(book => {
-            const li = document.createElement("li");
-            li.textContent = book.name;
-            wishlistContainer.appendChild(li);
-        });
-        }
-    
-        // Завантажити Wishlist при завантаженні сторінки
-        fetchWishlist();
-        </script>
+ <script>
+    async function addBook() {
+      const title = document.getElementById('titleInput').value.trim();
+
+      if (!title) {
+        alert('Please enter a book title.');
+        return;
+      }
+
+      const response = await fetch('/api/books', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title }),
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        console.error("Помилка додавання:", error);
+        return;
+      }
+
+      document.getElementById('titleInput').value = ''; // очищення поля
+      loadBooks(); // оновити список
+    }
+
+    async function loadBooks() {
+      const response = await fetch('/api/books');
+      const books = await response.json();
+
+      const list = document.getElementById('bookList');
+      list.innerHTML = '';
+
+      books.forEach(book => {
+        const li = document.createElement('li');
+        li.textContent = book.title;
+        list.appendChild(li);
+      });
+    }
+
+    // Завантаження при відкритті
+    loadBooks();
+  </script>
 </body>
 </html>
