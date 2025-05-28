@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const bookRoutes = require('./routes/wishlistRoutes');
+app.use('/api', bookRoutes);
 
 const employeeRoutes = require('./routes/employeeRoutes');
 const authRoutes = require('./routes/authRoutes'); // ⬅️ додано

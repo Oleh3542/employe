@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>owl bOOk</title>
+  <link rel="stylesheet" href="public/style.css" />
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <h2>owl<br>bOOk</h2>
+    </div>
+    <div class="user-info">
+      <span id="username">Вітаю! Бабій Олег</span>
+    <a href="index.html">  <button class="but2"  onclick="logout()">вийти</button>  </a>
+    <a href="main.html"> <button class="but2" onclick="goToWishlist()">Головна</button> </a> 
+    </div>
+  </div>
+  <div class="book-container" id="book-container">
+    <!-- Сюди будуть підтягуватись книги -->
+  </div>
+  <ul id="wishlist">
+    <h2>Ваш Wishlist</h2>
+
+
+    <!-- Сюди будуть підтягуватись книги з Wishlist -->
+
+  </ul>
+<!--
+  <script>
+   const token = localStorage.getItem('token');
+
+    async function fetchBooks() {
+      const res = await fetch('/api/books', {
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      });
+      const books = await res.json();
+      const container = document.getElementById('book-container');
+      container.innerHTML = '';
+
+      books.forEach(book => {
+        const div = document.createElement('div');
+        div.className = 'book-card';
+        div.innerHTML = `
+          <img src="${book.imageUrl}" alt="book cover"/>
+          <p>${book.title}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    async function fetchUser() {
+      const res = await fetch('/api/auth/me', {
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      });
+      const data = await res.json();
+      document.getElementById('username').textContent = data.name || 'Користувач';
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      window.location.href = '/login.html';
+    }
+
+    function goToWishlist() {
+      window.location.href = '/wishlist.html';
+    }
+
+    fetchBooks();
+    fetchUser();
+  </script>
+
+  -->
+
+
+    <div class="form-container">
+    <h2>Add New book</h2>
+<input type="text" id="titleInput" placeholder="Enter book title" />
+  <button onclick="addBook()">Add Book</button>
+
+  <ul id="bookList"></ul>
+  </div>
+    <script>
+        async function addEmployee() {
+        const name = document.getElementById("name").value;
+    
+        const res = await fetch("/api/books", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title }),
+        });
+    
+        const data = await res.json();
+    
+        if (res.ok) {
+            alert("Книга додана до Wishlist");
+            document.getElementById("name").value = ""; // Очистити поле вводу
+            fetchWishlist(); // Оновити список
+        } else {
+            alert(data.message);
+        }
+        }
+    
+        async function fetchWishlist() {
+        const res = await fetch("/api/books");
+        const wishlist = await res.json();
+        const wishlistContainer = document.getElementById("wishlist");
+        wishlistContainer.innerHTML = ""; // Очистити попередній список
+    
+        wishlist.forEach(book => {
+            const li = document.createElement("li");
+            li.textContent = book.name;
+            wishlistContainer.appendChild(li);
+        });
+        }
+    
+        // Завантажити Wishlist при завантаженні сторінки
+        fetchWishlist();
+        </script>
+</body>
+</html>

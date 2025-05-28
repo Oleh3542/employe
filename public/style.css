@@ -36,3 +36,52 @@ button {
   border: none;
   cursor: pointer;
 }
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.navbar {
+  background: #e53935;
+  padding: 10px 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info button {
+  margin-left: 10px;
+}
+
+.book-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.book-card {
+  width: 120px;
+  text-align: center;
+}
+
+.book-card img {
+  width: 100%;
+  height: 150px;
+  background: #ccc;
+}
+ .logo{
+ text-align: center;
+    margin-left: 875px;
+ }
+
+
+ .but2 {
+  margin: 5px;
+  padding: 10px 20px;
+  background:   white;
+  color: #e63232;
+  border: none;
+  cursor: pointer;
+}
